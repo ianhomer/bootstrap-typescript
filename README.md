@@ -34,7 +34,9 @@ Use the command line to copy files into place if you like
     curl $RAW_URI/.gitignore -sSO
     curl $RAW_URI/.prettierignore -sSO
     curl $RAW_URI/.lintstagedrc -sSO
+    curl $RAW_URI/tsconfig -sSO
     curl $RAW_URI/src/index.ts -sS -o src/index.ts
+    curl $RAW_URI/src/my.test.ts -sS -o src/my.test.ts
 
 Initialise yarn with typescript
 
@@ -53,22 +55,30 @@ Add prettier, eslint, and format-package for linting
       @typescript-eslint/eslint-plugin \
       @typescript-eslint/parser
 
+Add jest for unit testing
+
+    pnpm add -D jest ts-jest @types/jest @jest/types
+    pnpm ts-jest config:init
+
 Add the following scripts to `package.json`
 
     "scripts": {
       "eslint": "eslint src --ext .ts",
       "eslint:fix": "eslint src --ext .ts --fix",
-      "lint": "pnpm prettier && yarn eslint",
+      "lint": "pnpm prettier && pnpm eslint",
       "lint:fix": "pnpm package:fix && pnpm prettier:fix && pnpm eslint:fix",
       "package:fix": "format-package -w",
       "prepare": "husky install",
       "prettier": "pnpx prettier --check .",
-      "prettier:fix": "pnpx prettier --write ."
+      "prettier:fix": "pnpx prettier --write .",
+      "start": "ts-node src/index.ts",
+      "test": "pnpm jest"
     },
 
-Check linting added OK
+Check linting added OK and unit tests running
 
     pnpm lint:fix
+    pnpm test
 
 Add husky and lint-staged
 
@@ -80,7 +90,7 @@ Kick off `README.md` and add `## tl;dr` section guiding user what to do once
 they've cloned the repository, start it off with something like
 
     touch README.md
-    echo -e "# title\n\n## tl;dr\n\n    yarn" >> README.md
+    echo -e "# title\n\n## tl;dr\n\n    pnpm install" >> README.md
 
 and add to this README as the repository evolves.
 
