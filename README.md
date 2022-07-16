@@ -1,16 +1,16 @@
-# Bootstrap a Typescript Project
+# Bootstrap a TypeScript project
 
 Explicit steps to bootstrap a typescript project with no hidden magic. Be aware
-of each step. Only do it if you want it. Expand on these steps as you desire.
+of each step. Only do it if you want it. Expand on these steps as you want.
 
-## tl;dr
+## Getting started
 
 Either create git repository and clone
 
     git clone git@github.com:ianhomer/my-repository.git
     cd my-repository
 
-or **(OPT1)** initialise git repository locally and push
+or initialise git repository locally and push
 
     mkdir my-repository && cd my-repository
     git init --initial-branch=main
@@ -19,9 +19,9 @@ Copy the following files into your repository as baseline files
 
 - `.github/workflows/build.yaml`
 - `.eslintc.js`
-- `.gitignore`
+- `.gitinore`
 - `.lintstagedrc`
-- `src/index.ts` - simple typescript file to get rolling
+- `src/index.ts` - typescript file to get rolling
 
 Use the command line to copy files into place if you like
 
@@ -30,21 +30,22 @@ Use the command line to copy files into place if you like
     mkdir -p .github/workflows src
     curl $RAW_URI/.github/workflows/build.yaml -sS \
       -o .github/workflows/build.yaml
-    curl $RAW_URI/.eslintrc.js -sSO
+    curl $RAW_URI/.eslintrc.json -sSO
     curl $RAW_URI/.gitignore -sSO
+    curl $RAW_URI/.prettierignore -sSO
     curl $RAW_URI/.lintstagedrc -sSO
     curl $RAW_URI/src/index.ts -sS -o src/index.ts
 
 Initialise yarn with typescript
 
-    yarn init
-    yarn add -D typescript ts-node
+    pnpm init
+    pnpm add -D typescript ts-node @types/node
 
 Review `package.json` and clean out entries not needed.
 
-Add prettier, eslint and format-package for linting
+Add prettier, eslint, and format-package for linting
 
-    yarn add -D                        \
+    pnpm add -D                        \
       prettier format-package          \
       eslint                           \
       eslint-plugin-simple-import-sort \
@@ -57,23 +58,23 @@ Add the following scripts to `package.json`
     "scripts": {
       "eslint": "eslint src --ext .ts",
       "eslint:fix": "eslint src --ext .ts --fix",
-      "lint": "yarn prettier && yarn eslint",
-      "lint:fix": "yarn package:fix && yarn prettier:fix && yarn eslint:fix",
+      "lint": "pnpm prettier && yarn eslint",
+      "lint:fix": "pnpm package:fix && pnpm prettier:fix && pnpm eslint:fix",
       "package:fix": "format-package -w",
       "prepare": "husky install",
-      "prettier": "npx prettier --check .",
-      "prettier:fix": "npx prettier --write ."
+      "prettier": "pnpx prettier --check .",
+      "prettier:fix": "pnpx prettier --write ."
     },
 
 Check linting added OK
 
-    yarn lint:fix
+    pnpm lint:fix
 
 Add husky and lint-staged
 
-    yarn add -D husky lint-staged
-    yarn prepare
-    npx husky add .husky/pre-commit "npx lint-staged"
+    pnpm add -D husky lint-staged
+    pnpm prepare
+    pnpx husky add .husky/pre-commit "npx lint-staged"
 
 Kick off `README.md` and add `## tl;dr` section guiding user what to do once
 they've cloned the repository, start it off with something like
@@ -83,7 +84,7 @@ they've cloned the repository, start it off with something like
 
 and add to this README as the repository evolves.
 
-If **(OPT2)** it's a public repository add a LICENSE file, e.g. BSD
+If this a public repository add a LICENSE file, for example BSD
 
     curl $RAW_URI/LICENSE -sSO
 
@@ -92,7 +93,7 @@ Commit and push
     git add .
     git commit -am "Start"
 
-If **(OPT1)** you initialised git repository repository then add the remote
+If you initialised git repository repository locally then add the remote
 origin
 
     git remote add origin git@github.com:ianhomer/boot1.git
