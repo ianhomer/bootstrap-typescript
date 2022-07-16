@@ -74,7 +74,7 @@ Add husky and lint-staged
 
     pnpm add -D husky lint-staged
     pnpm prepare
-    pnpx husky add .husky/pre-commit "npx lint-staged"
+    pnpx husky add .husky/pre-commit "pnpx lint-staged"
 
 Kick off `README.md` and add `## tl;dr` section guiding user what to do once
 they've cloned the repository, start it off with something like

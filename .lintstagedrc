@@ -1,5 +1,5 @@
 {
-  "*.{ts,md}": "prettier --write .",
+  "*.{json,md,ts,yaml}": "prettier --write .",
   "*.ts": "eslint"
 }
 
