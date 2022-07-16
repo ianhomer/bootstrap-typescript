@@ -20,5 +20,5 @@ jobs:
           version: 7.x
       - name: pnpm install and lint
         run: |
-          pnpm
+          pnpm install
           pnpm lint
