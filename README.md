@@ -80,7 +80,7 @@ Check linting added OK and unit tests running
     pnpm lint:fix
     pnpm test
 
-Add husky and lint-staged
+Lint on commit
 
     pnpm add -D husky lint-staged
     pnpm prepare
