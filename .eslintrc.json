@@ -5,19 +5,32 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "simple-import-sort"],
+  "plugins": [
+    "@typescript-eslint",
+    "no-only-tests",
+    "simple-import-sort",
+    "sonarjs"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "prettier",
+    "plugin:sonarjs/recommended"
   ],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-var-requires": "off",
+    "simple-import-sort/exports": "error",
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "eqeqeq": ["error", "smart"],
+    "no-only-tests/no-only-tests": [
+      "error",
+      {
+        "fix": true
+      }
+    ]
   },
   "env": {
     "node": true
