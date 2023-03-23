@@ -11,7 +11,8 @@
     "prettier": "npx prettier --check .",
     "prettier:fix": "npx prettier --write .",
     "start": "ts-node src/index.ts",
-    "test": "pnpm jest"
+    "test": "pnpm jest",
+    "test:watch": "pnpm jest --watch"
   },
   "devDependencies": {
     "@jest/types": "^29.5.0",
