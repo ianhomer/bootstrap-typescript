@@ -34,7 +34,7 @@ Use the command line to copy files into place if you like
     curl $RAW_URI/.gitignore -sSO
     curl $RAW_URI/.prettierignore -sSO
     curl $RAW_URI/.lintstagedrc -sSO
-    curl $RAW_URI/tsconfig -sSO
+    curl $RAW_URI/tsconfig.json -sSO
     curl $RAW_URI/src/index.ts -sS -o src/index.ts
     curl $RAW_URI/src/my.test.ts -sS -o src/my.test.ts
 
@@ -50,8 +50,10 @@ Add prettier, eslint, and format-package for linting
     pnpm add -D                        \
       prettier format-package          \
       eslint                           \
-      eslint-plugin-simple-import-sort \
       eslint-config-prettier           \
+      eslint-plugin-no-only-tests      \
+      eslint-plugin-simple-import-sort \
+      eslint-plugin-sonarjs            \
       @typescript-eslint/eslint-plugin \
       @typescript-eslint/parser
 
@@ -72,7 +74,8 @@ Add the following scripts to `package.json`
       "prettier": "pnpx prettier --check .",
       "prettier:fix": "pnpx prettier --write .",
       "start": "ts-node src/index.ts",
-      "test": "pnpm jest"
+      "test": "pnpm jest",
+      "test:watch": "pnpm jest --watch"
     },
 
 Check linting added OK and unit tests running
