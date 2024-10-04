@@ -54,6 +54,9 @@ Add prettier, eslint, and format-package for linting
       eslint-plugin-no-only-tests      \
       eslint-plugin-simple-import-sort \
       eslint-plugin-sonarjs            \
+      globals                          \
+      @eslint/eslintrc                 \
+      @eslint/js                       \
       @typescript-eslint/eslint-plugin \
       @typescript-eslint/parser
 
@@ -75,7 +78,8 @@ Add the following scripts to `package.json`
       "prettier:fix": "pnpx prettier --write .",
       "start": "ts-node src/index.ts",
       "test": "pnpm jest",
-      "test:watch": "pnpm jest --watch"
+      "test:watch": "pnpm jest --watch",
+      "update": "pnpm update -L"
     },
 
 Check linting added OK and unit tests running
@@ -87,7 +91,9 @@ Lint on commit
 
     pnpm add -D husky lint-staged
     pnpm prepare
-    pnpx husky add .husky/pre-commit "pnpx lint-staged"
+    pnpx husky init
+    echo "pnpm test" > .husky/pre-commit
+    echo "pnpx lint-staged" >> .husky/pre-commit
 
 Kick off `README.md` and add `## tl;dr` section guiding user what to do once
 they've cloned the repository, start it off with something like
