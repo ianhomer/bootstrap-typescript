@@ -18,9 +18,10 @@ or initialise git repository locally and push
 Copy the following files into your repository as baseline files
 
 - `.github/workflows/build.yaml`
-- `.eslintc.js`
 - `.gitinore`
 - `.lintstagedrc`
+- `eslint.config.mjs`
+- `prettier.config.mjs`
 - `src/index.ts` - typescript file to get rolling
 
 Use the command line to copy files into place if you like
@@ -30,15 +31,16 @@ Use the command line to copy files into place if you like
     mkdir -p .github/workflows src
     curl $RAW_URI/.github/workflows/build.yaml -sS \
       -o .github/workflows/build.yaml
-    curl $RAW_URI/.eslintrc.json -sSO
+    curl $RAW_URI/eslint.config.mjs -sSO
     curl $RAW_URI/.gitignore -sSO
     curl $RAW_URI/.prettierignore -sSO
     curl $RAW_URI/.lintstagedrc -sSO
+    curl $RAW_URI/prettier.config.mjs -sSO
     curl $RAW_URI/tsconfig.json -sSO
     curl $RAW_URI/src/index.ts -sS -o src/index.ts
     curl $RAW_URI/src/my.test.ts -sS -o src/my.test.ts
 
-Initialise yarn with typescript
+Initialise [pnpm](https://pnpm.io/) project with typescript
 
     pnpm init
     pnpm add -D typescript ts-node @types/node
@@ -48,7 +50,8 @@ Review `package.json` and clean out entries not needed.
 Add prettier, eslint, and format-package for linting
 
     pnpm add -D                        \
-      prettier format-package          \
+      prettier                         \
+      prettier-plugin-packagejson      \
       eslint                           \
       eslint-config-prettier           \
       eslint-plugin-no-only-tests      \
@@ -73,7 +76,7 @@ Add the following scripts to `package.json`
       "lint": "pnpm prettier && pnpm eslint",
       "lint:fix": "pnpm package:fix && pnpm prettier:fix && pnpm eslint:fix",
       "package:fix": "format-package -w",
-      "prepare": "husky install",
+      "prepare": "husky",
       "prettier": "pnpx prettier --check .",
       "prettier:fix": "pnpx prettier --write .",
       "start": "ts-node src/index.ts",
@@ -90,7 +93,6 @@ Check linting added OK and unit tests running
 Lint on commit
 
     pnpm add -D husky lint-staged
-    pnpm prepare
     pnpx husky init
     echo "pnpm test" > .husky/pre-commit
     echo "pnpx lint-staged" >> .husky/pre-commit
