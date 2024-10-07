@@ -23,7 +23,7 @@ jobs:
         run: |
           pnpm install
           pnpm run update
-          pnpm line
+          pnpm lint
           pnpm test
         env:
           CI: false
